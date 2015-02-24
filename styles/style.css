@@ -39,14 +39,14 @@ html, body {
     border-radius: 10px;
 }
 
-.col-md-2 .category {
+.category {
     padding: 10px 0 10px 20px;
     font-weight: bold;
     font-size: 18px;
     color: #F23E03;;
     box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.2);
 }
-.col-md-2 ul {
+ul {
     list-style: none;
     font-size: 18px;
 }

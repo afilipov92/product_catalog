@@ -29,12 +29,4 @@ class CategoryModel extends BaseModel {
             'title' => $this->title,
         ));
     }
-
-  /*  public static function selCat($id) {
-        $sel = self::connect()->prepare('SELECT * FROM categories WHERE id=:id');
-        $sel->execute(array(
-            'id' => $id
-        ));
-        return $sel->fetch(PDO::FETCH_CLASS, 'CategoryModel');
-    }*/
 }
