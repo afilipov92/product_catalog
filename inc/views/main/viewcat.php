@@ -2,7 +2,7 @@
 <div class="container container-shadow menu">
     <?= $this->displayPartial('common/cat'); ?>
     <?php foreach ($this->allgoods as $value) { ?>
-        <div class="col-md-4 goods-preview">
+        <div class="col-md-4 col-sm-4 col-xs-4 goods-preview">
             <a href="<?= Controller::url('main', 'reviewgoods', $value['id']) ?>">
                 <div>
                     <img src="<?= Controller::url('images', 'goods', $value['image']) ?>"/>
@@ -15,7 +15,7 @@
             </a>
         </div>
     <?php } ?>
-    <div class="col-md-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
         <?php
         $this->displayPartial('common/pager', array(
             'currentPage' => $this->currentPage,

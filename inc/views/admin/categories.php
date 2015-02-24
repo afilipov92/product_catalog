@@ -2,6 +2,8 @@
 <div class="container container-shadow menu">
     <?= $this->displayPartial('common/catgoods'); ?>
 
+    <button></button>
+
     <?php foreach ($this->allcat as $value) { ?>
         <div class="col-md-6">
             <a href="<?= Controller::url('admin', 'addcategory', $value['id']) ?>">

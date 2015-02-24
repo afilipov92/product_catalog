@@ -23,4 +23,46 @@ class AdminController extends Controller {
 
         $this->view->display('admin/categories');
     }
+
+    public function addCatAction() {
+        $cat = new CategoryModel();
+        if($this->isPost()) {
+            $cat->setAttributes($_POST);
+            if($cat->isFormVaild()) {
+                if($cat->addCat()) {
+                    $this->redirect(Controller::url('admin', 'categories'));
+                } else {
+                    $this->view->gbErrors['result'] = "Ошиба добавления категории";
+                }
+            } else {
+                $this->view->gbErrors = $cat->getErrors();
+            }
+        }
+        $this->view->data = $cat;
+        $this->view->display('admin/cat-form');
+    }
+
+    public function editCatAction($id = 1) {
+        $cat = new CategoryModel();
+        if($this->isPost()) {
+            $cat->setAttributes($_POST);
+            if($cat->isFormVaild()) {
+                if($cat->addCat()) {
+                    $this->redirect(Controller::url('admin', 'categories'));
+                } else {
+                    $this->view->gbErrors['result'] = "Ошиба обновления категории";
+                }
+            } else {
+                $this->view->gbErrors = $cat->getErrors();
+            }
+        }
+        $elem = BaseModel::findBy('categories', array('id' => $id));
+        if($elem) {
+            $cat->setAttributes($elem);
+        } else {
+            $this->redirect(Controller::url('admin', 'categories'));
+        }
+        $this->view->data = $cat;
+        $this->view->display('admin/cat-form');
+    }
 }

@@ -5,6 +5,10 @@ class BaseModel {
      * @var PDO
      */
     private static $db;
+    /**
+     * @var array errors
+     */
+    protected $errors;
 
     /**
      * возвращает соединение с базой данных
@@ -95,6 +99,14 @@ class BaseModel {
         $st = self::connect()->prepare($query);
         $st->execute();
         return $st->fetchColumn();
+    }
+
+    /**
+     * возврашает ошибки
+     * @return mixed
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 
     /**
