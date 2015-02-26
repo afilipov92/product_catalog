@@ -41,4 +41,16 @@ class Controller {
         header('Location: ' . $url);
         die;
     }
+
+    /**
+     * выводит сообщение перед
+     * перенаправлением на другую страницу
+     * @param $url
+     * @param $message
+     */
+    public function redirectWithMes($url, $message) {
+        header('Refresh: 2; URL=' . $url);
+        echo "<h2 align='center'>" . $message . "</h2>";
+        die;
+    }
 }

@@ -81,29 +81,41 @@ class BaseModel {
             $query .= " WHERE id_cat=:id";
         }
         $query .= " ORDER BY id DESC LIMIT :limit OFFSET :offset";
-        $st = self::connect()->prepare($query);
-        if ($id) {
-            $st->bindParam(':id', $id, PDO::PARAM_INT);
+        try {
+            $st = self::connect()->prepare($query);
+            if ($id) {
+                $st->bindParam(':id', $id, PDO::PARAM_INT);
+            }
+            $st->bindParam(':limit', $pageSize, PDO::PARAM_INT);
+            $st->bindParam(':offset', $num, PDO::PARAM_INT);
+            $st->execute();
+            return $st->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $e->getMessage();
         }
-        $st->bindParam(':limit', $pageSize, PDO::PARAM_INT);
-        $st->bindParam(':offset', $num, PDO::PARAM_INT);
-        $st->execute();
-        return $st->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Возвращает общее колличество записей
      */
-    public static function getTotalCount($table) {
+    public static function getTotalCount($table, array $condition = array()) {
         $query = 'SELECT COUNT(*) FROM ' . $table;
+        if (!empty($condition)) {
+            $query .= " WHERE ";
+            $whereCondition = array();
+            foreach ($condition as $key => $val) {
+                array_push($whereCondition, "$key = :$key");
+            }
+            $query .= implode(" AND ", $whereCondition);
+        }
         $st = self::connect()->prepare($query);
-        $st->execute();
+        $st->execute($condition);
         return $st->fetchColumn();
     }
 
     /**
      * возврашает ошибки
-     * @return mixed
+     * @return array - ошибки
      */
     public function getErrors() {
         return $this->errors;

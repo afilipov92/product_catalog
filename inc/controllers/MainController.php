@@ -4,8 +4,15 @@ class MainController extends Controller {
     /**
      * отображение категория
      */
-    public function indexAction() {
+    public function indexAction($page = 1) {
         $this->view->cat = BaseModel::findBy('categories', array(), true);
+        $this->view->allgoods = BaseModel::getItemsForPage('goods', $page);
+
+        $messagesCount = BaseModel::getTotalCount('goods');
+        $this->view->currentPage = $page;
+        $this->view->totalPages = $pages = ceil($messagesCount / PAGE_SIZE_FOR_CAT);
+        $this->view->pagerLinkTpl = Controller::url('main', 'index', '{{PAGE}}');
+
         $this->view->display('main/mainpage');
     }
 
@@ -20,7 +27,7 @@ class MainController extends Controller {
 
         $this->view->allgoods = BaseModel::getItemsForPage('goods', $page, $id);
 
-        $messagesCount = BaseModel::getTotalCount('goods');
+        $messagesCount = BaseModel::getTotalCount('goods', array('id_cat' => $id));
         $this->view->currentPage = $page;
         $this->view->totalPages = $pages = ceil($messagesCount / PAGE_SIZE_FOR_CAT);
         $this->view->pagerLinkTpl = Controller::url('main', 'reviewcat', $id, '{{PAGE}}');

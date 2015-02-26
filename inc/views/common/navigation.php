@@ -7,7 +7,12 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse">
-
+                <ul class="nav navbar-nav nav-color-text">
+                    <li><a href="<?= Controller::url('main') ?>"><span class="glyphicon glyphicon-home"
+                                                                       aria-hidden="true"></span> Главная</a></li>
+                    <li><a href="<?= Controller::url('admin') ?>"><span class="glyphicon glyphicon-king"
+                                                                        aria-hidden="true"></span> Админка</a></li>
+                </ul>
             </div>
         </div>
     </div>
